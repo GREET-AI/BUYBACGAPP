@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRightCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { ArrowRightCircle, ChevronDown, ChevronUp, Shield } from 'lucide-react';
 
 interface FloatingNumber {
   id: number;
@@ -300,18 +300,43 @@ export default function HowItWorks() {
               
               {/* Header - Always Visible */}
               <div className="relative z-10 p-8">
-                <div className="flex items-center justify-between cursor-pointer" onClick={() => setIsRevolutionExpanded(!isRevolutionExpanded)}>
-                  <h2 className="text-3xl font-bold text-white bg-gradient-to-r from-[#22c55e] to-[#16a34a] bg-clip-text text-transparent">The BUYBACG Revolution</h2>
-                  <div className="flex items-center gap-2 text-[#22c55e] hover:text-[#16a34a] transition-colors">
-                    <span className="text-sm font-medium">{isRevolutionExpanded ? 'Show Less' : 'Learn More'}</span>
-                    {isRevolutionExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                  </div>
-                </div>
+                <h2 className="text-3xl font-bold text-white bg-gradient-to-r from-[#22c55e] to-[#16a34a] bg-clip-text text-transparent">The BUYBACG Revolution</h2>
                 
                 {/* Short Description - Always Visible */}
                 <p className="text-white/80 text-lg mt-4">
                   <span className="font-bold text-[#22c55e]">UNLIMITED HOLDER GROWTH</span> through the most aggressive buyback machine in crypto history.
                 </p>
+                
+                {/* Call-to-Action Bullet Points - Always Visible */}
+                <div className="mt-6 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-[#22c55e] rounded-full"></div>
+                    <span className="text-white/90 font-medium">🚀 <span className="text-[#22c55e] font-bold">75%</span> of all fees go to buyback & burn</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-[#d97706] rounded-full"></div>
+                    <span className="text-white/90 font-medium">💰 <span className="text-[#d97706] font-bold">25%</span> distributed as airdrops to holders</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-[#22c55e] rounded-full"></div>
+                    <span className="text-white/90 font-medium">⚡ Buybacks every <span className="text-[#22c55e] font-bold">30 minutes</span> - 24/7</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-[#d97706] rounded-full"></div>
+                    <span className="text-white/90 font-medium">🎯 <span className="text-[#d97706] font-bold">0.8%</span> fee on all trades fuels the machine</span>
+                  </div>
+                </div>
+                
+                {/* Learn More Button - Bottom Right */}
+                <div className="flex justify-end mt-6">
+                  <button 
+                    onClick={() => setIsRevolutionExpanded(!isRevolutionExpanded)}
+                    className="flex items-center gap-2 bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold px-4 py-2 rounded-lg transition-all border border-[#22c55e] hover:border-[#16a34a] shadow-lg"
+                  >
+                    <span className="text-sm">{isRevolutionExpanded ? 'Show Less' : 'Learn More'}</span>
+                    {isRevolutionExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  </button>
+                </div>
               </div>
 
               {/* Expanded Content */}
