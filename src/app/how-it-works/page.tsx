@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRightCircle, Shield } from 'lucide-react';
+import { ArrowRightCircle, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface FloatingNumber {
   id: number;
@@ -22,60 +22,66 @@ interface FloatingLogo {
   opacity: string;
 }
 
-// 1. SVG-Icons für Bags Tiers
 const SmallBagIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="inline-block align-middle">
-    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2Z" fill="#22c55e"/>
-    <path d="M20 8H4C2.9 8 2 8.9 2 10V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V10C22 8.9 21.1 8 20 8Z" fill="#22c55e"/>
-    <path d="M12 12C13.1 12 14 12.9 14 14C14 15.1 13.1 16 12 16C10.9 16 10 15.1 10 14C10 12.9 10.9 12 12 12Z" fill="#fbbf24"/>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 8C6 6.89543 6.89543 6 8 6H16C17.1046 6 18 6.89543 18 8V16C18 17.1046 17.1046 18 16 18H8C6.89543 18 6 17.1046 6 16V8Z" fill="#22c55e"/>
+    <path d="M8 4C7.44772 4 7 4.44772 7 5V7H17V5C17 4.44772 16.5523 4 16 4H8Z" fill="#22c55e"/>
+    <text x="12" y="13" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">$</text>
   </svg>
 );
+
 const MediumBagIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="inline-block align-middle">
-    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2Z" fill="#16a34a"/>
-    <path d="M20 8H4C2.9 8 2 8.9 2 10V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V10C22 8.9 21.1 8 20 8Z" fill="#16a34a"/>
-    <path d="M12 12C13.1 12 14 12.9 14 14C14 15.1 13.1 16 12 16C10.9 16 10 15.1 10 14C10 12.9 10.9 12 12 12Z" fill="#fbbf24"/>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 8C6 6.89543 6.89543 6 8 6H16C17.1046 6 18 6.89543 18 8V16C18 17.1046 17.1046 18 16 18H8C6.89543 18 6 17.1046 6 16V8Z" fill="#fbbf24"/>
+    <path d="M8 4C7.44772 4 7 4.44772 7 5V7H17V5C17 4.44772 16.5523 4 16 4H8Z" fill="#fbbf24"/>
+    <text x="12" y="13" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">$$</text>
   </svg>
 );
+
 const LargeBagIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="inline-block align-middle">
-    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2Z" fill="#15803d"/>
-    <path d="M20 8H4C2.9 8 2 8.9 2 10V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V10C22 8.9 21.1 8 20 8Z" fill="#15803d"/>
-    <path d="M12 12C13.1 12 14 12.9 14 14C14 15.1 13.1 16 12 16C10.9 16 10 15.1 10 14C10 12.9 10.9 12 12 12Z" fill="#fbbf24"/>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 8C6 6.89543 6.89543 6 8 6H16C17.1046 6 18 6.89543 18 8V16C18 17.1046 17.1046 18 16 18H8C6.89543 18 6 17.1046 6 16V8Z" fill="#ef4444"/>
+    <path d="M8 4C7.44772 4 7 4.44772 7 5V7H17V5C17 4.44772 16.5523 4 16 4H8Z" fill="#ef4444"/>
+    <text x="12" y="13" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">$$$</text>
   </svg>
 );
+
 const PremiumBagIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="inline-block align-middle">
-    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2Z" fill="#166534"/>
-    <path d="M20 8H4C2.9 8 2 8.9 2 10V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V10C22 8.9 21.1 8 20 8Z" fill="#166534"/>
-    <path d="M12 12C13.1 12 14 12.9 14 14C14 15.1 13.1 16 12 16C10.9 16 10 15.1 10 14C10 12.9 10.9 12 12 12Z" fill="#fbbf24"/>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 8C6 6.89543 6.89543 6 8 6H16C17.1046 6 18 6.89543 18 8V16C18 17.1046 17.1046 18 16 18H8C6.89543 18 6 17.1046 6 16V8Z" fill="#8b5cf6"/>
+    <path d="M8 4C7.44772 4 7 4.44772 7 5V7H17V5C17 4.44772 16.5523 4 16 4H8Z" fill="#8b5cf6"/>
+    <text x="12" y="13" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">$$$$</text>
   </svg>
 );
+
 const EliteBagIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="inline-block align-middle">
-    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2Z" fill="#14532d"/>
-    <path d="M20 8H4C2.9 8 2 8.9 2 10V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V10C22 8.9 21.1 8 20 8Z" fill="#14532d"/>
-    <path d="M12 12C13.1 12 14 12.9 14 14C14 15.1 13.1 16 12 16C10.9 16 10 15.1 10 14C10 12.9 10.9 12 12 12Z" fill="#fbbf24"/>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 8C6 6.89543 6.89543 6 8 6H16C17.1046 6 18 6.89543 18 8V16C18 17.1046 17.1046 18 16 18H8C6.89543 18 6 17.1046 6 16V8Z" fill="#f59e0b"/>
+    <path d="M8 4C7.44772 4 7 4.44772 7 5V7H17V5C17 4.44772 16.5523 4 16 4H8Z" fill="#f59e0b"/>
+    <text x="12" y="13" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">$$$$$</text>
   </svg>
 );
+
 const TimeIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#14F195" strokeWidth="2" /><path d="M12 7v5l3 2" stroke="#14F195" strokeWidth="2" strokeLinecap="round" /></svg>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="2" fill="none"/>
+    <path d="M12 6V12L16 14" stroke="#22c55e" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
 );
 
 export default function HowItWorks() {
-  const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; color: string; size: string }>>([]);
-  const [shootingStars, setShootingStars] = useState<Array<{ left: string; delay: string }>>([]);
   const [floatingNumbers, setFloatingNumbers] = useState<FloatingNumber[]>([]);
   const [floatingLogos, setFloatingLogos] = useState<FloatingLogo[]>([]);
+  const [particles, setParticles] = useState<Array<{ left: string; top: string; delay: string; color: string; size: string }>>([]);
+  const [shootingStars, setShootingStars] = useState<Array<{ left: string; delay: string }>>([]);
+  const [isRevolutionExpanded, setIsRevolutionExpanded] = useState(false);
 
-  // Generate random timer value
   const generateRandomTime = () => {
-    const minutes = Math.floor(Math.random() * 60).toString().padStart(2, '0');
-    const seconds = Math.floor(Math.random() * 60).toString().padStart(2, '0');
-    return `${minutes}:${seconds}`;
+    const minutes = Math.floor(Math.random() * 30);
+    const seconds = Math.floor(Math.random() * 60);
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  // Get random BuyBag color
   const getRandomBuyBagColor = () => {
     return Math.random() > 0.5 ? '#16a34a' : '#22c55e';
   };
@@ -170,7 +176,7 @@ export default function HowItWorks() {
         {floatingNumbers.map((number) => (
           <div
             key={number.id}
-                            className="absolute animate-float-number font-bags text-lg"
+            className="absolute animate-float-number font-bags text-lg"
             style={{
               left: number.left,
               top: number.top,
@@ -192,22 +198,22 @@ export default function HowItWorks() {
               left: logo.left,
               top: logo.top,
               animationDelay: logo.delay,
-              opacity: logo.opacity,
-              transform: `scale(${logo.scale}) rotate(${Math.random() * 360}deg)`
+              transform: `scale(${logo.scale})`,
+              opacity: logo.opacity
             }}
           >
-            <Image
-              src="/BUYBACG.png"
-              alt="BUYBACG"
-              width={60}
-              height={60}
-              className="w-12 h-12 object-contain drop-shadow-lg"
+            <Image 
+              src="/BUYBACG.png" 
+              alt="BUYBACG Logo" 
+              width={32} 
+              height={32} 
+              className="w-8 h-8 object-contain"
             />
           </div>
         ))}
 
-        {/* Animated particles (sparkles) and shooting stars container */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Particles & Shooting Stars */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           {particles.map((particle, i) => (
             <div
               key={`particle-${i}`}
@@ -224,7 +230,6 @@ export default function HowItWorks() {
               }}
             />
           ))}
-
           {shootingStars.map((star, i) => (
             <div
               key={`star-${i}`}
@@ -235,9 +240,9 @@ export default function HowItWorks() {
                 animationDelay: star.delay,
                 width: '2px',
                 height: '2px',
-                              background: 'linear-gradient(90deg, #16a34a, transparent)',
-              borderRadius: '50%',
-              boxShadow: '0 0 0 1px #16a34a44'
+                background: 'linear-gradient(90deg, #22c55e, transparent)',
+                borderRadius: '50%',
+                boxShadow: '0 0 0 1px #22c55e44'
               }}
             />
           ))}
@@ -277,10 +282,10 @@ export default function HowItWorks() {
         </div>
 
         {/* Steps Section */}
-        {/* The BUYBACG Revolution */}
+        {/* The BUYBACG Revolution - Collapsible */}
         <div className="px-6 py-20">
           <div className="max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-[#16a34a]/20 via-[#22c55e]/10 to-[#15803d]/20 backdrop-blur-sm rounded-2xl p-8 border border-[#22c55e]/30 relative overflow-hidden group hover:border-[#22c55e]/50 transition-all duration-300 mb-20">
+            <div className="bg-gradient-to-br from-[#16a34a]/20 via-[#22c55e]/10 to-[#15803d]/20 backdrop-blur-sm rounded-2xl border border-[#22c55e]/30 relative overflow-hidden group hover:border-[#22c55e]/50 transition-all duration-300 mb-20">
               <div className="absolute -top-4 -left-4 w-16 h-16 bg-gradient-to-br from-[#22c55e] to-[#16a34a] rounded-full flex items-center justify-center text-2xl font-bold text-white transform -rotate-12 shadow-lg">
                 🚀
               </div>
@@ -292,32 +297,51 @@ export default function HowItWorks() {
                 </div>
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-[#16a34a]/10 via-transparent to-[#22c55e]/10 animate-pulse opacity-30" />
-              <div className="relative z-10">
-                <h2 className="text-3xl font-bold mb-6 text-white bg-gradient-to-r from-[#22c55e] to-[#16a34a] bg-clip-text text-transparent">The BUYBACG Revolution</h2>
-                <div className="text-white/90 text-lg leading-relaxed space-y-4">
-                  <p>While other projects focus on charity donations and developer profits, <span className="font-bold text-[#22c55e]">BUYBACG is built for ONE purpose only: UNLIMITED HOLDER GROWTH</span>.</p>
-                  <p>We&apos;re not here to save the world or fund developers. We&apos;re here to create the <span className="font-bold text-[#d97706]">MOST AGGRESSIVE BUYBACK MACHINE</span> in crypto history.</p>
-                  <p>Every trade, every volume, every fee goes directly back to <span className="font-bold text-[#22c55e]">YOU</span> - the holders who generate the volume. No middlemen, no charity, no developer wallets.</p>
-                  <p>Our mission: <span className="font-bold text-[#d97706]">INFINITE BUYBACKS</span> until the end of this bull run and beyond. We&apos;re claiming the title of the coin with the most buybacks in crypto history.</p>
-                  
-                  <div className="bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-lg p-4 mt-4">
-                    <h3 className="font-bold text-[#22c55e] text-lg mb-2">🚀 Fair Launch Strategy</h3>
-                    <p className="text-white/80 text-sm mb-3">We&apos;re launching with <span className="font-bold text-[#d97706]">5 SOL buy-in</span> to prevent snipers and ensure a healthy, organic chart growth. No pump and dump, no manipulation - just pure, sustainable growth.</p>
-                    <p className="text-white/80 text-sm">Our <span className="font-bold text-[#22c55e]">strategic burn schedule</span> starts at 50k MC and continues at moderate intervals, ensuring supply reduction while maintaining price stability.</p>
-                  </div>
-
-                  <div className="bg-[#d97706]/10 border border-[#d97706]/30 rounded-lg p-4">
-                    <h3 className="font-bold text-[#d97706] text-lg mb-2">🛡️ Anti-Rug Protection</h3>
-                    <p className="text-white/80 text-sm mb-3">We&apos;ve designed BUYBACG to be <span className="font-bold text-[#22c55e]">impossible to rug</span>. No single entity can control enough supply to manipulate the market. Traders can take profits, but no one can destroy the project.</p>
-                    <p className="text-white/80 text-sm">This creates a <span className="font-bold text-[#d97706]">viral, organic ecosystem</span> where success breeds success, and every holder benefits from the collective growth.</p>
-                  </div>
-
-                  <div className="bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-lg p-4">
-                    <p className="text-center font-bold text-[#22c55e] text-xl">🎯 CHALLENGE ACCEPTED 🎯</p>
-                    <p className="text-center text-white/70 text-sm mt-2">Building the future of fair, sustainable crypto growth</p>
+              
+              {/* Header - Always Visible */}
+              <div className="relative z-10 p-8">
+                <div className="flex items-center justify-between cursor-pointer" onClick={() => setIsRevolutionExpanded(!isRevolutionExpanded)}>
+                  <h2 className="text-3xl font-bold text-white bg-gradient-to-r from-[#22c55e] to-[#16a34a] bg-clip-text text-transparent">The BUYBACG Revolution</h2>
+                  <div className="flex items-center gap-2 text-[#22c55e] hover:text-[#16a34a] transition-colors">
+                    <span className="text-sm font-medium">{isRevolutionExpanded ? 'Show Less' : 'Learn More'}</span>
+                    {isRevolutionExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                   </div>
                 </div>
+                
+                {/* Short Description - Always Visible */}
+                <p className="text-white/80 text-lg mt-4">
+                  <span className="font-bold text-[#22c55e]">UNLIMITED HOLDER GROWTH</span> through the most aggressive buyback machine in crypto history.
+                </p>
               </div>
+
+              {/* Expanded Content */}
+              {isRevolutionExpanded && (
+                <div className="relative z-10 px-8 pb-8 border-t border-[#22c55e]/20">
+                  <div className="text-white/90 text-lg leading-relaxed space-y-4 mt-6">
+                    <p>While other projects focus on charity donations and developer profits, <span className="font-bold text-[#22c55e]">BUYBACG is built for ONE purpose only: UNLIMITED HOLDER GROWTH</span>.</p>
+                    <p>We&apos;re not here to save the world or fund developers. We&apos;re here to create the <span className="font-bold text-[#d97706]">MOST AGGRESSIVE BUYBACK MACHINE</span> in crypto history.</p>
+                    <p>Every trade, every volume, every fee goes directly back to <span className="font-bold text-[#22c55e]">YOU</span> - the holders who generate the volume. No middlemen, no charity, no developer wallets.</p>
+                    <p>Our mission: <span className="font-bold text-[#d97706]">INFINITE BUYBACKS</span> until the end of this bull run and beyond. We&apos;re claiming the title of the coin with the most buybacks in crypto history.</p>
+                    
+                    <div className="bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-lg p-4 mt-4">
+                      <h3 className="font-bold text-[#22c55e] text-lg mb-2">🚀 Fair Launch Strategy</h3>
+                      <p className="text-white/80 text-sm mb-3">We&apos;re launching with <span className="font-bold text-[#d97706]">5 SOL buy-in</span> to prevent snipers and ensure a healthy, organic chart growth. No pump and dump, no manipulation - just pure, sustainable growth.</p>
+                      <p className="text-white/80 text-sm">Our <span className="font-bold text-[#22c55e]">strategic burn schedule</span> starts at 50k MC and continues at moderate intervals, ensuring supply reduction while maintaining price stability.</p>
+                    </div>
+
+                    <div className="bg-[#d97706]/10 border border-[#d97706]/30 rounded-lg p-4">
+                      <h3 className="font-bold text-[#d97706] text-lg mb-2">🛡️ Anti-Rug Protection</h3>
+                      <p className="text-white/80 text-sm mb-3">We&apos;ve designed BUYBACG to be <span className="font-bold text-[#22c55e]">impossible to rug</span>. No single entity can control enough supply to manipulate the market. Traders can take profits, but no one can destroy the project.</p>
+                      <p className="text-white/80 text-sm">This creates a <span className="font-bold text-[#d97706]">viral, organic ecosystem</span> where success breeds success, and every holder benefits from the collective growth.</p>
+                    </div>
+
+                    <div className="bg-[#22c55e]/10 border border-[#22c55e]/30 rounded-lg p-4">
+                      <p className="text-center font-bold text-[#22c55e] text-xl">🎯 CHALLENGE ACCEPTED 🎯</p>
+                      <p className="text-center text-white/70 text-sm mt-2">Building the future of fair, sustainable crypto growth</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
