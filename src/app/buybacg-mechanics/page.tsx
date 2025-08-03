@@ -93,7 +93,7 @@ export default function BuybacgMechanics() {
           <div className="max-w-5xl mx-auto text-center space-y-8">
             <div className="relative w-32 h-32 mx-auto mb-8">
               <div className="relative w-32 h-32 flex items-center justify-center">
-                <Image src="/buybacg.gif" alt="BuyBag Logo" width={80} height={80} className="w-20 h-20 object-contain" />
+                <Image src="/BUYBACG.gif" alt="BuyBag Logo" width={80} height={80} className="w-20 h-20 object-contain" />
               </div>
             </div>
 

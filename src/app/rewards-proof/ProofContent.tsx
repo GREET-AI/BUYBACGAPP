@@ -77,7 +77,7 @@ export default function ProofContent() {
       <div className="relative z-10 max-w-3xl mx-auto pt-16 pb-8 px-4">
         {/* Logo und Headline */}
         <div className="flex flex-col items-center mb-8">
-                      <Image src="/buybacg.gif" alt="BuyBag Logo" width={80} height={80} className="mb-4 rounded-full shadow-lg" />
+                      <Image src="/BUYBACG.gif" alt="BuyBag Logo" width={80} height={80} className="mb-4 rounded-full shadow-lg" />
           <h1 className="text-3xl md:text-4xl font-bold text-[#22c55e] mb-2 flex items-center gap-2"><Shield className="w-7 h-7 text-[#22c55e]" />Buyback & Burn Proof</h1>
           <p className="text-white/80 text-base md:text-lg text-center max-w-xl mb-2">All buyback & burn transactions are transparent, verifiable and secured on-chain. Trust is our foundation: every burn is logged and auditable for your peace of mind.</p>
         </div>

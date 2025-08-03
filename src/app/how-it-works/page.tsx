@@ -250,7 +250,7 @@ export default function HowItWorks() {
               <div className="absolute inset-[-30%] bg-gradient-to-r from-[#16a34a]/40 via-green-500/20 to-[#22c55e]/40 rounded-full blur-2xl animate-pulse" />
               <div className="relative w-32 h-32 rounded-full flex items-center justify-center overflow-hidden">
                 <Image
-                  src="/buybacg.gif"
+                  src="/BUYBACG.gif"
                   alt="BuyBag Logo"
                   width={80}
                   height={80}

@@ -112,7 +112,7 @@ export default function Timer() {
         <div className="w-40 h-40 mb-8 flex items-center justify-center relative">
           <div className="absolute inset-0 bg-gradient-to-r from-[#fbbf24] via-[#22c55e] to-[#16a34a] rounded-full blur-2xl opacity-50 animate-pulse"></div>
           <Image 
-            src="/buybacg.gif" 
+            src="/BUYBACG.gif" 
             alt="BUYBACG Logo" 
             width={160} 
             height={160} 
