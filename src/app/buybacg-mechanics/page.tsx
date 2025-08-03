@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Shield, TrendingUp, Zap, Target, Calculator } from "lucide-react";
+import { Shield, TrendingUp, Zap, Target } from "lucide-react";
 
 interface FloatingFormula {
   id: string;
@@ -350,20 +350,7 @@ Your Airdrop = (Your BUYBACG / Total Eligible BUYBACG)
           </div>
         </div>
 
-        {/* Calculate Rewards Button */}
-        <div className="px-6 py-20">
-          <div className="max-w-5xl mx-auto text-center">
-            <a 
-              href="/calculator"
-              className="inline-flex bg-[#22c55e] hover:bg-[#16a34a] text-white font-extrabold px-8 py-4 rounded-lg text-xl transition-all items-center group border-2 border-[#22c55e] hover:border-[#16a34a] shadow-lg relative overflow-hidden font-bags"
-              style={{ minWidth: '250px' }}
-            >
-              <span className="relative z-10">Calculate Your Rewards</span>
-              <Calculator className="w-6 h-6 ml-3 text-white group-hover:scale-110 transition-transform" />
-              <span className="absolute inset-0 rounded-lg pointer-events-none group-hover:animate-gloss" style={{background: 'linear-gradient(120deg,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.35) 50%,rgba(255,255,255,0.15) 100%)', opacity: 0.7}}></span>
-            </a>
-          </div>
-        </div>
+
       </div>
     </div>
   );
