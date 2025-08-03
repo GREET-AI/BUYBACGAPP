@@ -1,0 +1,2 @@
+// BuyBag token mint address
+export const BUYBAG_MINT = "BuyBag111111111111111111111111111111111111111"; 
